@@ -1,5 +1,5 @@
 import express, { Express } from "express";
-import Database from "./config/Database";
+import Database from "./config/database.config";
 
 const app: Express = express();
 const PORT = 8000;
