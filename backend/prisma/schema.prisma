@@ -17,10 +17,10 @@ enum Gender {
   FEMALE
 }
 
-model user {
+model User {
   id           String    @id @default(uuid())
-  firstName    String    @db.VarChar(25)
-  lastName     String    @db.VarChar(25)
+  firstName    String    @db.VarChar(50)
+  lastName     String    @db.VarChar(35)
   gender       Gender    @default(MALE)
   email        String    @db.VarChar(75)
   passwordHash String    @db.Text
@@ -30,5 +30,123 @@ model user {
   updatedAt    DateTime  @updatedAt
   deletedAt    DateTime?
 
+  sessions       Session[]
+  senders        Message[]      @relation("senderId")
+  receivers      Message[]      @relation("receiverId")
+  followerOwners Follower[]     @relation("userId")
+  followers      Follower[]     @relation("followerId")
+  notifications  Notification[]
+  likes          Like[]
+  comments       Comment[]
+  posts Post[]
+
+  @@index([id])
+  @@index([email])
+  @@index([isOnline])
   @@map("users")
+}
+
+model Session {
+  id           String   @id @default(uuid())
+  userId       String
+  refreshToken String   @db.Text()
+  createdAt    DateTime @default(now())
+
+  user         User     @relation(fields: [userId], references: [id])
+
+  @@index([userId])
+  @@map("sessions")
+}
+
+model Message {
+  id         String    @id @default(uuid())
+  senderId   String
+  receiverId String
+  content    String    @db.VarChar(1000)
+  isRead     Boolean   @default(false)
+  createdAt  DateTime  @default(now())
+  updatedAt  DateTime  @updatedAt
+  deletedAt  DateTime?
+
+  sender   User @relation("senderId", fields: [senderId], references: [id])
+  receiver User @relation("receiverId", fields: [receiverId], references: [id])
+
+  @@index([id])
+  @@index([senderId, receiverId])
+  @@map("messages")
+}
+
+model Follower {
+  id         String   @id @default(uuid())
+  userId     String
+  followerId String
+  createdAt  DateTime @default(now())
+
+  user     User @relation("userId", fields: [userId], references: [id])
+  follower User @relation("followerId", fields: [followerId], references: [id])
+
+  @@unique([userId, followerId])
+  @@index([userId])
+  @@map("followers")
+}
+
+model Notification {
+  id        String    @id @default(uuid())
+  userId    String
+  message   String    @db.VarChar(1000)
+  isRead    Boolean   @default(false)
+  createdAt DateTime  @default(now())
+  updatedAt DateTime  @updatedAt
+  deletedAt DateTime?
+
+  user User @relation(fields: [userId], references: [id])
+
+  @@index([userId])
+  @@map("notifications")
+}
+
+model Post {
+  id        String    @id @default(uuid())
+  authorId  String
+  content   String    @db.VarChar(1000)
+  createdAt DateTime  @default(now())
+  updatedAt DateTime  @updatedAt
+  deletedAt DateTime?
+
+  likes    Like[]
+  comments Comment[]
+  user User @relation(fields: [authorId], references: [id])
+
+  @@index([authorId])
+  @@index([createdAt])
+  @@map("posts")
+}
+
+model Like {
+  id        String   @id @default(uuid())
+  postId    String
+  userId    String
+  createdAt DateTime @default(now())
+
+  post Post @relation(fields: [postId], references: [id])
+  user User @relation(fields: [userId], references: [id])
+
+  @@unique([postId, userId])
+  @@index([postId])
+  @@map("likes")
+}
+
+model Comment {
+  id        String   @id @default(uuid())
+  postId    String
+  authorId  String
+  content   String   @db.VarChar(225)
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  post   Post @relation(fields: [postId], references: [id])
+  author User @relation(fields: [authorId], references: [id])
+
+  @@index([postId])
+  @@map("comments")
 }
