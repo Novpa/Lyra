@@ -1,6 +1,6 @@
 <mxfile host="Electron">
   <diagram name="Page-1" id="k96b5PMD2PgV_w5-Body">
-    <mxGraphModel dx="3529" dy="2320" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="850" pageHeight="1100" math="0" shadow="0">
+    <mxGraphModel dx="2884" dy="1889" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="850" pageHeight="1100" math="0" shadow="0">
       <root>
         <mxCell id="0" />
         <mxCell id="1" parent="0" />
@@ -83,7 +83,7 @@
             <mxRectangle height="30" width="30" as="alternateBounds" />
           </mxGeometry>
         </mxCell>
-        <mxCell id="3NSoOfRo7wabB0Eg6d6_-17" parent="3NSoOfRo7wabB0Eg6d6_-15" style="shape=partialRectangle;connectable=0;fillColor=none;top=0;left=0;bottom=0;right=0;align=left;spacingLeft=6;overflow=hidden;whiteSpace=wrap;html=1;fontSize=19;labelBackgroundColor=none;strokeColor=#EEEEEE;fontColor=light-dark(#000000,#FFFFFF);rounded=0;" value="password&lt;span style=&quot;white-space: pre;&quot;&gt;&#x9;&lt;/span&gt;&lt;span style=&quot;white-space: pre;&quot;&gt;&#x9;&lt;/span&gt;&lt;span style=&quot;white-space: pre;&quot;&gt;&#x9;&lt;/span&gt;&lt;span style=&quot;white-space: pre;&quot;&gt;&#x9;&lt;/span&gt;VARCHAR(75)" vertex="1">
+        <mxCell id="3NSoOfRo7wabB0Eg6d6_-17" parent="3NSoOfRo7wabB0Eg6d6_-15" style="shape=partialRectangle;connectable=0;fillColor=none;top=0;left=0;bottom=0;right=0;align=left;spacingLeft=6;overflow=hidden;whiteSpace=wrap;html=1;fontSize=19;labelBackgroundColor=none;strokeColor=#EEEEEE;fontColor=light-dark(#000000,#FFFFFF);rounded=0;" value="passwordHash&lt;span style=&quot;white-space: pre;&quot;&gt;&#x9;&lt;/span&gt;&lt;span style=&quot;white-space: pre;&quot;&gt;&#x9;&lt;/span&gt;VARCHAR(75)" vertex="1">
           <mxGeometry height="30" width="460" x="30" as="geometry">
             <mxRectangle height="30" width="460" as="alternateBounds" />
           </mxGeometry>
