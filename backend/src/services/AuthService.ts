@@ -1,7 +1,7 @@
 import { UserRepository } from "../repositories/UserRepository";
 import { AppError } from "../util/AppError";
 import bcrypt from "bcrypt";
-import { RegisterUserDTO } from "../validators/AuthValidator";
+import { LoginUserDTO, RegisterUserDTO } from "../validators/AuthValidator";
 
 export class AuthService {
   private userRepository: UserRepository;
@@ -32,7 +32,7 @@ export class AuthService {
     return userWithoutPassword;
   }
 
-  public async login(credentials: any) {
+  public async login(credentials: LoginUserDTO) {
     const { email, password } = credentials;
 
     const existingUser = await this.userRepository.findByEmail(email);
