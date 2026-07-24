@@ -4,8 +4,6 @@ import { Pool } from "pg";
 import { PrismaClient } from "../../generated/prisma/client";
 import { DATABASE_URL } from "./Dotenv";
 
-dotenv.config();
-
 class Database {
   private static instance: Database;
   private pool: Pool;
