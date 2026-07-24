@@ -31,4 +31,19 @@ export class AuthService {
 
     return userWithoutPassword;
   }
+
+  public async login(credentials: any) {
+    const { email, password } = credentials;
+
+    const existingUser = await this.userRepository.findByEmail(email);
+    if (!existingUser) throw new AppError(404, "Invalid credentials!");
+
+    const isMatch = await bcrypt.compare(password, existingUser.passwordHash);
+
+    if (!isMatch) throw new AppError(400, "Invalid credentials!");
+
+    const { passwordHash: _, ...userWithoutPassword } = existingUser;
+
+    return userWithoutPassword;
+  }
 }

@@ -27,8 +27,30 @@ export class AuthValidator {
       gender: z.enum(["MALE", "FEMALE"]).optional(),
     }),
   });
+
+  // login
+  public static readonly loginSchema = z.object({
+    body: z.object({
+      email: z.email("Email format is not valid"),
+      password: z
+        .string()
+        .min(8, "Password must be at least 8 characters")
+        .max(255, "Password too long")
+        .regex(/[A-Z]/, "Password must contain at least one uppercase letter")
+        .regex(/[a-z]/, "Password must contain at least one lowercase letter")
+        .regex(/[0-9]/, "Password must contain at least one number")
+        .regex(
+          /[^A-Za-z0-9]/,
+          "Password must contain at least one special character",
+        ),
+    }),
+  });
 }
 
+// register DTO
 export type RegisterUserDTO = z.infer<
   typeof AuthValidator.registerSchema
 >["body"];
+
+// login DTO
+export type LoginUserDTO = z.infer<typeof AuthValidator.loginSchema>["body"];

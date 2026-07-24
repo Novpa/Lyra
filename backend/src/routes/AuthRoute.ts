@@ -17,4 +17,10 @@ authRoute.post(
   authController.register,
 );
 
+authRoute.post(
+  "/login",
+  ValidationMiddleware.validate(AuthValidator.loginSchema),
+  authController.login,
+);
+
 export default authRoute;
