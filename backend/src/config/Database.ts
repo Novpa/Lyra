@@ -1,9 +1,8 @@
+import { PrismaPg } from "@prisma/adapter-pg";
 import dotenv from "dotenv";
 import { Pool } from "pg";
-import { Prisma, PrismaClient } from "../../generated/prisma/client";
-import { PrismaPg } from "@prisma/adapter-pg";
-
-dotenv.config();
+import { PrismaClient } from "../../generated/prisma/client";
+import { DATABASE_URL } from "./Dotenv";
 
 class Database {
   private static instance: Database;
@@ -12,7 +11,7 @@ class Database {
 
   private constructor() {
     this.pool = new Pool({
-      connectionString: process.env.DATABASE_URL,
+      connectionString: DATABASE_URL,
       max: 10,
       idleTimeoutMillis: 30000,
     });
