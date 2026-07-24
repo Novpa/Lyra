@@ -1,18 +1,16 @@
 import { UserRepository } from "../repositories/UserRepository";
 import { AppError } from "../util/AppError";
 import bcrypt from "bcrypt";
+import { RegisterUserDTO } from "../validators/AuthValidator";
 
 export class AuthService {
-  //
   private userRepository: UserRepository;
 
-  // dependency injection / repository injection
   constructor(userRepository: UserRepository) {
     this.userRepository = userRepository;
   }
 
-  // FIXME ->> (userData type) register
-  public async register(userData: any) {
+  public async register(userData: RegisterUserDTO) {
     const { firstName, lastName, email, password, gender } = userData;
 
     const existingUser = await this.userRepository.findByEmail(email);
@@ -24,6 +22,7 @@ export class AuthService {
     const newUser = await this.userRepository.create({
       firstName,
       lastName,
+      gender,
       email,
       passwordHash,
     });

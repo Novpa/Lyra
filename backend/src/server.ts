@@ -8,9 +8,8 @@ const app: Express = express();
 
 app.use(express.json());
 
+// postgreSQL connection testing
 const db = Database.getInstance();
-
-// db connection setting
 db.getPool().query("SELECT NOW()", (err, res) => {
   if (err) {
     console.error("Successfully connected to DB:", err);

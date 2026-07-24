@@ -28,3 +28,7 @@ export class AuthValidator {
     }),
   });
 }
+
+export type RegisterUserDTO = z.infer<
+  typeof AuthValidator.registerSchema
+>["body"];

@@ -12,7 +12,7 @@ const authController = new AuthController(authService);
 const authRoute = Router();
 
 authRoute.post(
-  "/signup",
+  "/register",
   ValidationMiddleware.validate(AuthValidator.registerSchema),
   authController.register,
 );

@@ -1,5 +1,6 @@
 import { NextFunction, Request, Response } from "express";
 import { AuthService } from "../services/AuthService";
+import { RegisterUserDTO } from "../validators/AuthValidator";
 
 export class AuthController {
   private authService: AuthService;
@@ -8,7 +9,11 @@ export class AuthController {
     this.authService = AuthService;
   }
 
-  public register = async (req: Request, res: Response, next: NextFunction) => {
+  public register = async (
+    req: Request<{}, {}, RegisterUserDTO, {}>,
+    res: Response,
+    next: NextFunction,
+  ) => {
     try {
       const newUser = await this.authService.register(req.body);
 

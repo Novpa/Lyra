@@ -9,9 +9,11 @@ export class ErrorHandler {
     res: Response,
     next: NextFunction,
   ): void {
+    // FIXME
+    console.log("ERROR ===> ", err);
+
     let statusCode = err.statusCode || 500;
     let message = err.message || "Internal Server Error";
-
     if (err instanceof AppError) {
       statusCode = err.statusCode;
       message = err.message;
