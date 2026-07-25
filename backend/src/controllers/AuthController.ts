@@ -44,4 +44,17 @@ export class AuthController {
       next(error);
     }
   };
+
+  public findUserByEmail = async (
+    req: Request,
+    res: Response,
+    next: NextFunction,
+  ) => {
+    try {
+      const email = req.body.email;
+      await this.authService.findUserByEmail(email);
+    } catch (error) {
+      next(error);
+    }
+  };
 }

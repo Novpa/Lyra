@@ -46,4 +46,6 @@ export class AuthService {
 
     return userWithoutPassword;
   }
+
+  public async findUserByEmail(email: string) {}
 }
