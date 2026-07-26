@@ -2,6 +2,7 @@ import express, { Express } from "express";
 import Database from "./config/Database";
 import { PORT } from "./config/Dotenv";
 import authRoute from "./routes/AuthRoute";
+import chatRoute from "./routes/ChatRoute";
 import { ErrorHandler } from "./middlewares/ErrorHandler";
 import { createServer } from "node:http";
 import { WebSocketManager } from "./websockets/WebSocketManager";
@@ -12,6 +13,7 @@ app.use(express.json());
 
 // main routes
 app.use("/api/auth", authRoute);
+app.use("/api/chat", chatRoute);
 
 // error handler
 app.use(ErrorHandler.handle);
