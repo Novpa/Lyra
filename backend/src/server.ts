@@ -3,20 +3,12 @@ import Database from "./config/Database";
 import { PORT } from "./config/Dotenv";
 import authRoute from "./routes/AuthRoute";
 import { ErrorHandler } from "./middlewares/ErrorHandler";
+import { createServer } from "node:http";
+import { WebSocketManager } from "./websockets/WebSocketManager";
 
 const app: Express = express();
 
 app.use(express.json());
-
-// postgreSQL connection testing
-const db = Database.getInstance();
-db.getPool().query("SELECT NOW()", (err, res) => {
-  if (err) {
-    console.error("Successfully connected to DB:", err);
-  } else {
-    console.log("Database time:", res.rows[0].now);
-  }
-});
 
 // main routes
 app.use("/api/auth", authRoute);
@@ -24,6 +16,20 @@ app.use("/api/auth", authRoute);
 // error handler
 app.use(ErrorHandler.handle);
 
-app.listen(PORT, () => {
-  console.log(`listening on port ${PORT}`);
+const server = createServer(app);
+
+// web socket
+const wsManager = WebSocketManager.getInstance();
+wsManager.initialize(server);
+
+server.listen(PORT, () => {
+  console.log(`[HTTP Server] running on http://localhost:${PORT}`);
+  console.log(`[WebSocket] Server ready on ws://localhost:${PORT}`);
+
+  try {
+    const db = Database.getInstance().getPool();
+    db.query("SELECT NOW()");
+  } catch (err) {
+    console.error("Successfully connected to DB:", err);
+  }
 });
