@@ -1,5 +1,6 @@
 import { NextFunction, Request, Response } from "express";
 import { ChatService } from "../services/ChatService";
+import { success } from "zod";
 
 export class ChatController {
   private chatService: ChatService;
@@ -11,15 +12,25 @@ export class ChatController {
 
   public async sendMessage(req: Request, res: Response, next: NextFunction) {
     try {
-      const { senderId, receiverId, text } = req.body;
+      const { senderId, receiverId, content } = req.body;
+
+      if (!senderId || !receiverId || !content) {
+        return res
+          .status(400)
+          .json({ error: "senderId, receiverId, dan content wajib diisi!" });
+      }
 
       const result = await this.chatService.sendMessage(
         senderId,
         receiverId,
-        text,
+        content,
       );
 
-      res.status(200).json(result);
+      res.status(200).json({
+        success: true,
+        message: "Message sent & notified successfully!",
+        data: result,
+      });
     } catch (error) {
       next(error);
     }

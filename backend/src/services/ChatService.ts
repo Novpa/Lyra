@@ -8,25 +8,29 @@ export class ChatService {
     this.chatRepository = ChatRepositoryInstance;
   }
 
-  public async sendMessage(senderId: string, receiverId: string, text: string) {
+  public async sendMessage(
+    senderId: string,
+    receiverId: string,
+    content: string,
+  ) {
     // save message to db
-    //...
+    const savedMessage = await this.chatRepository.saveMessage(
+      senderId,
+      receiverId,
+      content,
+    );
 
     // get instance
     const ws = WebSocketManager.getInstance();
 
     const payload = {
       type: "NEW_CHAT_MESSAGE",
-      data: {
-        from: senderId,
-        content: text,
-        timeStamp: new Date().toISOString(),
-      },
+      data: savedMessage,
     };
 
     // send to specific user
     ws.sendToUser(receiverId, payload);
 
-    return { success: true, message: "Message sent successfully" };
+    return savedMessage;
   }
 }
