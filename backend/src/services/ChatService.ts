@@ -33,4 +33,8 @@ export class ChatService {
 
     return savedMessage;
   }
+
+  public async getHistory(user1: string, user2: string) {
+    return await this.chatRepository.getHistory(user1, user2);
+  }
 }
