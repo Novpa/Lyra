@@ -34,7 +34,7 @@ export class ChatRepository {
   }
 
   // get chat history
-  public async getHistory(user1: string, user2: string) {
+  public async getChatHistory(user1: string, user2: string) {
     return await this.prisma.message.findMany({
       where: {
         OR: [

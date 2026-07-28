@@ -35,6 +35,6 @@ export class ChatService {
   }
 
   public async getHistory(user1: string, user2: string) {
-    return await this.chatRepository.getHistory(user1, user2);
+    return await this.chatRepository.getChatHistory(user1, user2);
   }
 }
