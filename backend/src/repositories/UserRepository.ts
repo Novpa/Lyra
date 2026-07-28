@@ -3,8 +3,10 @@ import Database from "../config/Database";
 import { USER_QUERIES } from "./queries/userQueries";
 
 export class UserRepository {
-  private prisma = Database.getInstance().getPrisma();
-  private pool = Database.getInstance().getPool();
+  constructor(
+    private prisma = Database.getInstance().getPrisma(),
+    private pool = Database.getInstance().getPool(),
+  ) {}
 
   public async findByEmail(email: string) {
     const user = await this.pool.query(USER_QUERIES.FIND_BY_EMAIL, [email]);
@@ -12,7 +14,7 @@ export class UserRepository {
   }
 
   public async create(data: UserCreateInput) {
-    return this.prisma.user.create({
+    return await this.prisma.user.create({
       data,
     });
   }
