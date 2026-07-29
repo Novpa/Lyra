@@ -3,6 +3,7 @@ import Database from "./config/Database";
 import { PORT } from "./config/Dotenv";
 import authRoute from "./routes/AuthRoute";
 import chatRoute from "./routes/ChatRoute";
+import postRoute from "./routes/PostRoute";
 import { ErrorHandler } from "./middlewares/ErrorHandler";
 import { createServer } from "node:http";
 import { WebSocketManager } from "./websockets/WebSocketManager";
@@ -14,6 +15,7 @@ app.use(express.json());
 // main routes
 app.use("/api/auth", authRoute);
 app.use("/api/chat", chatRoute);
+app.use("/api/post", postRoute);
 
 // error handler
 app.use(ErrorHandler.handle);

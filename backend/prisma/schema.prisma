@@ -17,6 +17,8 @@ enum Gender {
   FEMALE
 }
 
+// user___________________________________________
+
 model User {
   id           String    @id @default(uuid())
   firstName    String    @db.VarChar(50)
@@ -46,6 +48,8 @@ model User {
   @@map("users")
 }
 
+// session___________________________________________
+
 model Session {
   id           String   @id @default(uuid())
   userId       String
@@ -57,6 +61,8 @@ model Session {
   @@index([userId])
   @@map("sessions")
 }
+
+// message___________________________________________
 
 model Message {
   id         String    @id @default(uuid())
@@ -76,6 +82,8 @@ model Message {
   @@map("messages")
 }
 
+// follower___________________________________________
+
 model Follower {
   id         String   @id @default(uuid())
   userId     String
@@ -89,6 +97,8 @@ model Follower {
   @@index([userId])
   @@map("followers")
 }
+
+// notification___________________________________________
 
 model Notification {
   id        String    @id @default(uuid())
@@ -105,6 +115,8 @@ model Notification {
   @@map("notifications")
 }
 
+// post___________________________________________
+
 model Post {
   id        String    @id @default(uuid())
   authorId  String
@@ -118,9 +130,10 @@ model Post {
   user     User      @relation(fields: [authorId], references: [id])
 
   @@index([authorId])
-  @@index([createdAt])
   @@map("posts")
 }
+
+// like___________________________________________
 
 model Like {
   id        String   @id @default(uuid())
@@ -135,6 +148,8 @@ model Like {
   @@index([postId])
   @@map("likes")
 }
+
+// comment___________________________________________
 
 model Comment {
   id        String   @id @default(uuid())
