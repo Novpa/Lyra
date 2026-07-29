@@ -18,10 +18,14 @@ export class PostRepository {
 
   public async getAllPost(limit: number, page: number) {
     const offset = (page - 1) * limit;
-    return await this.pool.query(POST_QUERIES.GET_ALL_POST, [
+    const result = await this.pool.query(POST_QUERIES.GET_ALL_POST, [
       page,
       limit,
       offset,
     ]);
+
+    const allPost = result.rows;
+
+    return allPost;
   }
 }

@@ -17,4 +17,6 @@ postRoute.post(
   postController.createPost,
 );
 
+postRoute.get("/", postController.getAllPost);
+
 export default postRoute;
