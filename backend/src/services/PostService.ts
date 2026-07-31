@@ -34,25 +34,3 @@ export class PostService {
     };
   }
 }
-
-/*
-
-{
-    id: '068a9729-8bb9-45db-863a-172b35bc80c6',
-    authorId: '068a9729-8bb9-45db-863a-172b35bc80c6',
-    content: 'This is a brand new post!',
-    createdAt: 2026-07-24T03:17:56.196Z,
-    updatedAt: 2026-07-24T03:17:56.196Z,
-    deletedAt: null,
-    firstName: 'Novpa',
-    lastName: 'Rodriguez',
-    gender: 'MALE',
-    email: 'agungnovpa@gmail.com',
-    passwordHash: '$2b$10$uF956k4f4e8RtQQsVvP9Z.QNZSHVib9.BfOklZxAh79GdCsfvUZ7q',
-    avatar: null,
-    isOnline: false,
-    totaldata: '2',
-    totalpage: 2
-  }
-
-*/
