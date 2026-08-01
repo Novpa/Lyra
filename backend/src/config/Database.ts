@@ -1,5 +1,4 @@
 import { PrismaPg } from "@prisma/adapter-pg";
-import dotenv from "dotenv";
 import { Pool } from "pg";
 import { PrismaClient } from "../../generated/prisma/client";
 import { DATABASE_URL } from "./Dotenv";

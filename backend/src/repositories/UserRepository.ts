@@ -1,6 +1,6 @@
 import { UserCreateInput } from "../../generated/prisma/models";
 import Database from "../config/Database";
-import { USER_QUERIES } from "./queries/userQueries";
+import { USER_QUERIES } from "../queries/userQueries";
 
 export class UserRepository {
   constructor(
