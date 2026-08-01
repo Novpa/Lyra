@@ -25,7 +25,6 @@ export class PostRepository {
     ]);
 
     const allPost = result.rows;
-
     return allPost;
   }
 }

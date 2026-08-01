@@ -4,6 +4,7 @@ import { PORT } from "./config/Dotenv";
 import authRoute from "./routes/AuthRoute";
 import chatRoute from "./routes/ChatRoute";
 import postRoute from "./routes/PostRoute";
+import commentRoute from "./routes/CommentRoute";
 import { ErrorHandler } from "./middlewares/ErrorHandler";
 import { createServer } from "node:http";
 import { WebSocketManager } from "./websockets/WebSocketManager";
@@ -14,8 +15,9 @@ app.use(express.json());
 
 // main routes
 app.use("/api/auth", authRoute);
-app.use("/api/chat", chatRoute);
-app.use("/api/post", postRoute);
+app.use("/api/chats", chatRoute);
+app.use("/api/posts", postRoute);
+app.use("/api/comments", commentRoute);
 
 // error handler
 app.use(ErrorHandler.handle);
