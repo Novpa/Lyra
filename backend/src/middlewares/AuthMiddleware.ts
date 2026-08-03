@@ -22,7 +22,7 @@ export class AuthMiddleware {
   ) {
     try {
       const accessToken = req.cookies.accessToken;
-      console.log("ACCESS TOKEN ==> ", accessToken);
+
       if (!accessToken) {
         throw new AppError(401, "Unauthenticated action");
       }

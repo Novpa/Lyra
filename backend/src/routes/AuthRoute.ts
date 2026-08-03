@@ -4,11 +4,12 @@ import { AuthService } from "../services/AuthService";
 import { AuthController } from "../controllers/AuthController";
 import { ValidationMiddleware } from "../middlewares/ValidationMiddlewares";
 import { AuthValidator } from "../validators/AuthValidator";
+import { TokenRepository } from "../repositories/TokenRepository";
 
 const userRepository = new UserRepository();
-const authService = new AuthService(userRepository);
+const tokenRepository = new TokenRepository();
+const authService = new AuthService(userRepository, tokenRepository);
 const authController = new AuthController(authService);
-
 const authRoute = Router();
 
 authRoute.post(
@@ -22,5 +23,7 @@ authRoute.post(
   ValidationMiddleware.validate(AuthValidator.loginSchema),
   authController.login,
 );
+
+authRoute.post("/refresh", authController.refresh);
 
 export default authRoute;

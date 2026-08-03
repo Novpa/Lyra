@@ -6,20 +6,21 @@ import { Response } from "express";
 import Cookie from "../config/Cookie";
 
 export class JwtTokenProvider {
-  //? generate tokens
+  private static readonly ACCESS_TOKEN_EXPIRES_IN = "15m";
+  private static readonly REFRESH_TOKEN_EXPIRES_IN = "14d";
+
   public static generateTokens(tokenPayload: TokenPayload) {
     const accessToken = jwt.sign(tokenPayload, ACCESS_TOKEN_SECRET!, {
-      expiresIn: "15m",
+      expiresIn: JwtTokenProvider.ACCESS_TOKEN_EXPIRES_IN,
     });
 
     const refreshToken = jwt.sign(tokenPayload, REFRESH_TOKEN_SECRET!, {
-      expiresIn: "14d",
+      expiresIn: JwtTokenProvider.REFRESH_TOKEN_EXPIRES_IN,
     });
 
     return { accessToken, refreshToken };
   }
 
-  //? verify refresh token
   public static verifyRefreshToken(token: string) {
     try {
       return jwt.verify(token, REFRESH_TOKEN_SECRET) as TokenPayload;
@@ -35,7 +36,6 @@ export class JwtTokenProvider {
     }
   }
 
-  //? verify access token
   public static verifyAccessToken(token: string) {
     return jwt.verify(token, ACCESS_TOKEN_SECRET) as TokenPayload;
   }

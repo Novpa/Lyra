@@ -33,8 +33,8 @@ const wsManager = WebSocketManager.getInstance();
 wsManager.initialize(server);
 
 server.listen(PORT, () => {
-  console.log(`[HTTP Server] running on http://localhost:${PORT}`);
-  console.log(`[WebSocket] Server ready on ws://localhost:${PORT}`);
+  console.log(`[HTTP Server] is running on http://localhost:${PORT}`);
+  console.log(`[WebSocket] is running on ws://localhost:${PORT}`);
 
   try {
     const db = Database.getInstance().getPool();
