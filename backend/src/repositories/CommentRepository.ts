@@ -1,5 +1,6 @@
 import Database from "../config/Database";
 import { COMMENT_QUERIES } from "../queries/commentQueries";
+import { CreateComment } from "../types/commentTypes";
 
 export class CommentRepository {
   constructor(
@@ -7,7 +8,7 @@ export class CommentRepository {
     private pool = Database.getInstance().getPool(),
   ) {}
 
-  public async createComment({ postId, authorId, content }: any) {
+  public async createComment({ postId, authorId, content }: CreateComment) {
     return await this.prisma.comment.create({
       data: {
         postId,

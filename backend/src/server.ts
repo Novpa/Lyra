@@ -5,16 +5,20 @@ import authRoute from "./routes/AuthRoute";
 import chatRoute from "./routes/ChatRoute";
 import postRoute from "./routes/PostRoute";
 import commentRoute from "./routes/CommentRoute";
+import userRoute from "./routes/UserRoute";
 import { ErrorHandler } from "./middlewares/ErrorHandler";
 import { createServer } from "node:http";
 import { WebSocketManager } from "./websockets/WebSocketManager";
+import cookieParser from "cookie-parser";
 
 const app: Express = express();
 
 app.use(express.json());
+app.use(cookieParser());
 
 // main routes
 app.use("/api/auth", authRoute);
+app.use("/api/users", userRoute);
 app.use("/api/chats", chatRoute);
 app.use("/api/posts", postRoute);
 app.use("/api/comments", commentRoute);
@@ -29,8 +33,8 @@ const wsManager = WebSocketManager.getInstance();
 wsManager.initialize(server);
 
 server.listen(PORT, () => {
-  console.log(`[HTTP Server] running on http://localhost:${PORT}`);
-  console.log(`[WebSocket] Server ready on ws://localhost:${PORT}`);
+  console.log(`[HTTP Server] is running on http://localhost:${PORT}`);
+  console.log(`[WebSocket] is running on ws://localhost:${PORT}`);
 
   try {
     const db = Database.getInstance().getPool();

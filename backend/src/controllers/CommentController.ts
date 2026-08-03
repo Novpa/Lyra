@@ -21,9 +21,12 @@ export class CommentController {
     next: NextFunction,
   ) {
     try {
-      const postId = req.params.postId;
+      const postId = req.params.postId as string;
+      const authorId = req.user?.userId as string;
+      const { content } = req.body;
       const result = await this.commentService.createComment({
-        ...req.body,
+        content,
+        authorId,
         postId,
       });
 

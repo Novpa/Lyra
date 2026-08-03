@@ -1,4 +1,5 @@
 import { CommentRepository } from "../repositories/CommentRepository";
+import { CreateComment } from "../types/commentTypes";
 import { WebSocketManager } from "../websockets/WebSocketManager";
 
 export class CommentService {
@@ -8,7 +9,7 @@ export class CommentService {
     this.commentRepository = commentRepositoryInstance;
   }
 
-  public async createComment(data: any) {
+  public async createComment(data: CreateComment) {
     const createdComment = await this.commentRepository.createComment(data);
 
     // send notification

@@ -55,7 +55,7 @@ model Session {
   userId       String
   refreshToken String   @db.Text()
   createdAt    DateTime @default(now())
-
+  expiresAt    DateTime
   user User @relation(fields: [userId], references: [id])
 
   @@index([userId])

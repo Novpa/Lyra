@@ -4,7 +4,6 @@ export class ChatValidator {
   // send message
   public static readonly sendMessage = z.object({
     body: z.object({
-      senderId: z.uuid("Invalid sender ID"),
       receiverId: z.uuid("Invalid receiver ID"),
       content: z
         .string()
@@ -16,7 +15,6 @@ export class ChatValidator {
   // get chat history
   public static readonly getChatHistory = z.object({
     query: z.object({
-      user1: z.uuid("Invalid sender ID"),
       user2: z.uuid("Invalid receiver ID"),
     }),
   });
