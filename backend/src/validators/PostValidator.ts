@@ -4,7 +4,6 @@ export class PostValidator {
   // create post
   public static readonly createPostSchema = z.object({
     body: z.object({
-      userId: z.uuid("Invalid user ID"), // FIXME (remove after using authentication middleware)
       content: z
         .string()
         .min(2, "Post at least has 2 characters")

@@ -1,6 +1,8 @@
 import { NextFunction, Request, Response } from "express";
 import { AuthService } from "../services/AuthService";
 import { LoginUserDTO, RegisterUserDTO } from "../validators/AuthValidator";
+import Cookie from "../config/Cookie";
+import { JwtTokenProvider } from "../utils/JwtTokenProvider";
 
 export class AuthController {
   private authService: AuthService;
@@ -33,26 +35,19 @@ export class AuthController {
     next: NextFunction,
   ) => {
     try {
-      const user = await this.authService.login(req.body);
+      const {
+        accessToken,
+        refreshToken,
+        userWithoutPassword: user,
+      } = await this.authService.login(req.body);
+
+      JwtTokenProvider.setTokenCookies(res, accessToken, refreshToken);
 
       res.status(200).json({
         success: true,
         message: "Login successfully",
         data: user,
       });
-    } catch (error) {
-      next(error);
-    }
-  };
-
-  public findUserByEmail = async (
-    req: Request,
-    res: Response,
-    next: NextFunction,
-  ) => {
-    try {
-      const email = req.body.email;
-      await this.authService.findUserByEmail(email);
     } catch (error) {
       next(error);
     }

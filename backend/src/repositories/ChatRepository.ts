@@ -1,5 +1,5 @@
 import Database from "../config/Database";
-import { AppError } from "../util/AppError";
+import { AppError } from "../utils/AppError";
 
 export class ChatRepository {
   constructor(private prisma = Database.getInstance().getPrisma()) {}

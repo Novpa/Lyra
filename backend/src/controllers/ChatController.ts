@@ -21,8 +21,8 @@ export class ChatController {
     next: NextFunction,
   ) {
     try {
-      // fixme (get the senderId from authentication middleware)
-      const { senderId, receiverId, content } = req.body;
+      const senderId = req.user?.userId as string;
+      const { receiverId, content } = req.body;
 
       const result = await this.chatService.sendMessage(
         senderId,
@@ -46,7 +46,8 @@ export class ChatController {
     next: NextFunction,
   ) {
     try {
-      const { user1, user2 } = req.query;
+      const user1 = req.user?.userId as string;
+      const user2 = req.query.user2;
       const messages = await this.chatService.getHistory(user1, user2);
 
       res.status(200).json({

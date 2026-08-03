@@ -17,8 +17,8 @@ export class PostController {
     next: NextFunction,
   ) {
     try {
-      // fixme (get userId from authentication middleware)
-      const { userId, content } = req.body;
+      const userId = req.user?.userId as string;
+      const { content } = req.body;
       const createdPost = await this.postService.createPost(userId, content);
 
       res.status(201).json({

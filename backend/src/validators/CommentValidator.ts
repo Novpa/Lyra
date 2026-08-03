@@ -3,7 +3,6 @@ import z from "zod";
 export class CommentValidator {
   public static readonly createComment = z.object({
     body: z.object({
-      authorId: z.uuid("Invalid user ID"), // FIXME (remove after using authentication middleware)
       content: z
         .string()
         .min(1, "Post at least has 1 characters")

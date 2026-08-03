@@ -1,7 +1,10 @@
 import { UserRepository } from "../repositories/UserRepository";
-import { AppError } from "../util/AppError";
+import { AppError } from "../utils/AppError";
 import bcrypt from "bcrypt";
 import { LoginUserDTO, RegisterUserDTO } from "../validators/AuthValidator";
+import { User } from "../../generated/prisma/client";
+import { JwtTokenProvider } from "../utils/JwtTokenProvider";
+import { TokenPayload } from "../types/tokenTypes";
 
 export class AuthService {
   private userRepository: UserRepository;
@@ -10,10 +13,11 @@ export class AuthService {
     this.userRepository = userRepository;
   }
 
+  //? register
   public async register(userData: RegisterUserDTO) {
     const { firstName, lastName, email, password, gender } = userData;
 
-    const existingUser = await this.userRepository.findByEmail(email);
+    const existingUser: User = await this.userRepository.findByEmail(email);
     if (existingUser) throw new AppError(409, "User already exist!");
 
     const SALT_ROUND = 10;
@@ -32,10 +36,12 @@ export class AuthService {
     return userWithoutPassword;
   }
 
+  //? login
   public async login(credentials: LoginUserDTO) {
     const { email, password } = credentials;
 
     const existingUser = await this.userRepository.findByEmail(email);
+
     if (!existingUser) throw new AppError(404, "Invalid credentials!");
 
     const isMatch = await bcrypt.compare(password, existingUser.passwordHash);
@@ -44,8 +50,13 @@ export class AuthService {
 
     const { passwordHash: _, ...userWithoutPassword } = existingUser;
 
-    return userWithoutPassword;
-  }
+    const payload: TokenPayload = {
+      userId: userWithoutPassword.id,
+      fullName: `${userWithoutPassword.firstName} ${userWithoutPassword.lastName}`,
+    };
+    const { accessToken, refreshToken } =
+      JwtTokenProvider.generateTokens(payload);
 
-  public async findUserByEmail(email: string) {}
+    return { userWithoutPassword, accessToken, refreshToken };
+  }
 }
