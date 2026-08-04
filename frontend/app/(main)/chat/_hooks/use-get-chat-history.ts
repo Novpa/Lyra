@@ -5,9 +5,7 @@ export const useGetChatHistory = (receiverId: string) => {
   const chatHistoryQuery = useQuery({
     queryKey: ["chat-history"],
     queryFn: async () => {
-      const { data } = await api.get(`/chats/history/${receiverId}`, {
-        withCredentials: true,
-      });
+      const { data } = await api.get(`/chats/history?user2=${receiverId}`, {});
 
       return data;
     },

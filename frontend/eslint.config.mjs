@@ -13,6 +13,7 @@ const eslintConfig = defineConfig([
     "build/**",
     "next-env.d.ts",
     "./shared/lib", // for axios instance
+    "./actions", // for server actions
   ]),
 ]);
 
