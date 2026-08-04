@@ -18,4 +18,14 @@ export class UserRepository {
       data,
     });
   }
+
+  public async getUserDetails(id: string) {
+    const user = await this.prisma.user.findUnique({
+      where: {
+        id,
+      },
+    });
+
+    return user;
+  }
 }
