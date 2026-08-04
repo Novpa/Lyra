@@ -10,11 +10,14 @@ import { ErrorHandler } from "./middlewares/ErrorHandler";
 import { createServer } from "node:http";
 import { WebSocketManager } from "./websockets/WebSocketManager";
 import cookieParser from "cookie-parser";
+import { Cors } from "./config/Cors";
+import cors from "cors";
 
 const app: Express = express();
 
 app.use(express.json());
 app.use(cookieParser());
+app.use(cors(Cors.CORS_CONFIG));
 
 // main routes
 app.use("/api/auth", authRoute);

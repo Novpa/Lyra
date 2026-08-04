@@ -20,13 +20,17 @@ export class AuthMiddleware {
     res: Response,
     next: NextFunction,
   ) {
+    const accessToken = req.cookies.accessToken;
+
+    /*
+     * accessToken: put outside of the try-catch block so the catch block does not put the App Error in the 'else' block
+     */
+
+    if (!accessToken) {
+      throw new AppError(401, "Unauthenticated action");
+    }
+
     try {
-      const accessToken = req.cookies.accessToken;
-
-      if (!accessToken) {
-        throw new AppError(401, "Unauthenticated action");
-      }
-
       const decoded = JwtTokenProvider.verifyAccessToken(accessToken);
 
       req.user = {
