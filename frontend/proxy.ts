@@ -12,7 +12,7 @@ export const middlewares: MiddlewareFactory[] = [
   withAuthRoutes,
 ];
 
-export async function middleware(request: NextRequest) {
+export async function proxy(request: NextRequest) {
   const response = NextResponse.next();
 
   for (const currentMiddleware of middlewares) {

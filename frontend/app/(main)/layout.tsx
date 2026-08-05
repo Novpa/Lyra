@@ -1,4 +1,5 @@
 import { getUserDetails } from "@/actions/get-user-details";
+import WebSocketProvider from "@/shared/providers/WebSocketProvider";
 import { AuthState } from "@/shared/store/auth-store/auth-store";
 import StoreProvider from "@/shared/store/StoreProvider";
 import { cookies } from "next/headers";
@@ -24,7 +25,11 @@ async function layout({ children }: { children: React.ReactNode }) {
 
   return (
     <div className="w-full min-h-full">
-      <StoreProvider initialAuth={initialAuth}>{children}</StoreProvider>
+      <StoreProvider initialAuth={initialAuth}>
+        <WebSocketProvider userId={initialAuth.id}>
+          {children}
+        </WebSocketProvider>
+      </StoreProvider>
     </div>
   );
 }
