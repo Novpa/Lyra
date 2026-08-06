@@ -49,7 +49,7 @@ function Page() {
               placeholder="name@email.com"
             />
             {errors.email && (
-              <p className="mt-1 text-xs text-red-500">
+              <p className="pt-1 text-xs text-red-500">
                 {errors.email.message}
               </p>
             )}
@@ -67,7 +67,7 @@ function Page() {
               placeholder="••••••••"
             />
             {errors.password && (
-              <p className="mt-1 text-xs text-red-500">
+              <p className="pt-1 text-xs text-red-500">
                 {errors.password.message}
               </p>
             )}
