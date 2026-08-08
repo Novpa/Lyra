@@ -16,14 +16,14 @@ export const showSocialToast = ({
   content,
 }: NotificationProps) => {
   toast.custom((t) => (
-    <div className="flex items-start gap-3 w-full max-w-3xl rounded-xl bg-background p-4 shadow-lg border border-brand-neutral-200 text-foreground">
+    <div className="flex items-start gap-3 w-full max-w-3xl rounded-xl bg-background p-4 shadow-lg border border-neutral-200 text-foreground">
       {/* Avatar Image / Fallback */}
       <Image
         width={10}
         height={10}
         src={avatar || "https://github.com/shadcn.png"} // fixme (default avatar)
         alt={`${firstName} ${lastName}`}
-        className="h-10 w-10 rounded-full object-cover border border-brand-olive-500 shrink-0"
+        className="h-10 w-10 rounded-full object-cover border border-olive-500 shrink-0"
       />
 
       {/* Content Container */}
@@ -35,13 +35,13 @@ export const showSocialToast = ({
           {/* close button */}
           <button
             onClick={() => toast.dismiss(t)}
-            className="text-xs text-brand-neutral-400 hover:text-foreground hover:cursor-pointer">
+            className="text-xs text-neutral-400 hover:text-foreground hover:cursor-pointer">
             Dismiss
           </button>
         </div>
 
         {/* Message */}
-        <p className="text-xs text-brand-neutral-600 mt-1 line-clamp-2">
+        <p className="text-xs text-neutral-600 mt-1 line-clamp-2">
           {content?.length > 3 ? `${content.slice(0, 30)} ...` : content}
         </p>
       </div>

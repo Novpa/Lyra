@@ -1,6 +1,6 @@
 function ContactSearchInput() {
   return (
-    <label className="input w-full">
+    <label className="input input-ghost w-full bg-olive-200 focus-within:outline-none">
       <svg
         className="h-[1em] opacity-50"
         xmlns="http://www.w3.org/2000/svg"
@@ -15,7 +15,7 @@ function ContactSearchInput() {
           <path d="m21 21-4.3-4.3"></path>
         </g>
       </svg>
-      <input type="search" required placeholder="Search" />
+      <input type="search" required placeholder="Search" className="" />
     </label>
   );
 }

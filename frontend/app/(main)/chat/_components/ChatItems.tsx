@@ -22,12 +22,12 @@ function ChatItems() {
             <h4 className="font-semibold">John Doe</h4>
           </div>
           <div>
-            <p className="text-xs font-light text-brand-neutral-600">12.55</p>
+            <p className="text-xs font-light text-neutral-600">12.55</p>
           </div>
         </div>
         {/* message  */}
         <div>
-          <p className="text-sm text-brand-neutral-600">Hey there!</p>
+          <p className="text-sm text-neutral-600">Hey there!</p>
         </div>
       </div>
     </div>

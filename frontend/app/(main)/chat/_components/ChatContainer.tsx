@@ -6,12 +6,10 @@ function ChatContainer() {
       {/* heading section on top */}
       <section className="flex flex-col items-center gap-4  px-4">
         <div>
-          <h3 className="text-brand-neutral-600 text-3xl font-bold">
-            John Doe
-          </h3>
+          <h3 className="text-neutral-600 text-3xl font-bold">John Doe</h3>
         </div>
         <div>
-          <p className="text-brand-olive-500 text-xs">
+          <p className="text-olive-500 text-xs">
             This is the very beginning you are chatting with John Doe
           </p>
         </div>

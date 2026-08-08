@@ -16,10 +16,7 @@ function ChatHeader() {
 
       {/* name */}
       <div>
-        <p className="font-semibold text-md text-brand-neutral-100">
-          {" "}
-          John Doe
-        </p>
+        <p className="font-semibold text-md text-neutral-100"> John Doe</p>
       </div>
     </div>
   );

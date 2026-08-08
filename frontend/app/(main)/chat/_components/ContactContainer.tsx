@@ -10,12 +10,12 @@ function ContactContainer() {
       <div className="flex gap-4 items-center my-8">
         <div>
           <Link href="/">
-            <MdOutlineArrowBack className="text-2xl text-brand-olive-600" />
+            <MdOutlineArrowBack className="text-2xl text-olive-600" />
           </Link>
         </div>
 
         <div>
-          <h1 className="text-2xl text-brand-olive-600">Lyra Chats</h1>
+          <h1 className="text-2xl text-olive-600">Lyra Chats</h1>
         </div>
       </div>
 

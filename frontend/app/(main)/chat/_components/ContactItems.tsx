@@ -2,7 +2,7 @@ import Image from "next/image";
 
 function ContactItems() {
   return (
-    <div className="flex w-full gap-3 items-center py-4 px-3 hover:bg-brand-olive-200 hover:cursor-pointer transition-all duration-300 hover:rounded-sm">
+    <div className="flex w-full gap-3 items-center py-4 px-3 hover:bg-olive-200 hover:cursor-pointer transition-all duration-300 hover:rounded-sm">
       {/* profile */}
       <div className="relative w-12 h-10 rounded-full overflow-hidden">
         <Image
@@ -18,19 +18,17 @@ function ContactItems() {
       <div className="flex w-full items-center justify-between">
         <div className="flex flex-col gap-1">
           <div>
-            <h3 className="font-semibold text-sm text-brand-neutral-600">
-              John Doe
-            </h3>
+            <h3 className="font-semibold text-sm text-neutral-600">John Doe</h3>
           </div>
           <div>
-            <p className="text-xs text-brand-neutral-500">
+            <p className="text-xs text-neutral-500">
               This my message preview ...
             </p>
           </div>
         </div>
 
         <div>
-          <p className="text-xs text-brand-neutral-500">12:30</p>
+          <p className="text-xs text-neutral-500">12:30</p>
         </div>
       </div>
     </div>
