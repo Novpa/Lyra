@@ -54,7 +54,7 @@ function WebSocketProvider({ userId, children }: WebSocketProviderProps) {
     };
 
     return () => {
-      ws.close();
+      if (ws.readyState === 1) ws.close();
     };
   }, [userId]);
 
