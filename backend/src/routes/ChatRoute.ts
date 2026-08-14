@@ -26,4 +26,10 @@ chatRoute.get(
   chatController.getChatHistory,
 );
 
+chatRoute.get(
+  "/contact-history",
+  AuthMiddleware.authentication,
+  chatController.getContactChatHistory,
+);
+
 export default chatRoute;

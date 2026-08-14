@@ -37,4 +37,19 @@ export class ChatService {
   public async getHistory(user1: string, user2: string) {
     return await this.chatRepository.getChatHistory(user1, user2);
   }
+
+  public async getContactChatHistory(
+    userId: string,
+    page: number,
+    limit: number,
+  ) {
+    const offset = (page - 1) * limit;
+    const contacts = await this.chatRepository.getContactChatHistory(
+      userId,
+      limit,
+      offset,
+    );
+
+    return contacts;
+  }
 }

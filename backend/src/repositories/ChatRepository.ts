@@ -1,8 +1,12 @@
 import Database from "../config/Database";
+import { CHAT_QUERIES } from "../queries/chatQueries";
 import { AppError } from "../utils/AppError";
 
 export class ChatRepository {
-  constructor(private prisma = Database.getInstance().getPrisma()) {}
+  constructor(
+    private prisma = Database.getInstance().getPrisma(),
+    private pool = Database.getInstance().getPool(),
+  ) {}
 
   public async saveMessage(
     senderId: string,
@@ -46,5 +50,19 @@ export class ChatRepository {
         createdAt: "asc",
       },
     });
+  }
+
+  public async getContactChatHistory(
+    userId: string,
+    limit: number,
+    offset: number,
+  ) {
+    //
+    const rawContacts = await this.pool.query(
+      CHAT_QUERIES.GET_ALL_CONTACT_CHAT_HISTORY,
+      [userId, limit, offset],
+    );
+
+    return rawContacts.rows;
   }
 }

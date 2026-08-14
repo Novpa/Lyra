@@ -5,6 +5,8 @@ import {
   GetChatHistory,
   SendMessageDTO,
 } from "../validators/ChatValidator";
+import { e164 } from "zod";
+import { X509Certificate } from "node:crypto";
 
 export class ChatController {
   private chatService: ChatService;
@@ -13,6 +15,7 @@ export class ChatController {
     this.chatService = ChatServiceInstance;
     this.sendMessage = this.sendMessage.bind(this);
     this.getChatHistory = this.getChatHistory.bind(this);
+    this.getContactChatHistory = this.getContactChatHistory.bind(this);
   }
 
   public async sendMessage(
@@ -54,6 +57,31 @@ export class ChatController {
         success: true,
         message: "Chat history retrieved successfully!",
         data: messages,
+      });
+    } catch (error) {
+      next(error);
+    }
+  }
+
+  public async getContactChatHistory(
+    req: Request,
+    res: Response,
+    next: NextFunction,
+  ) {
+    try {
+      const page = Number(req.query.page) || 1;
+      const limit = Number(req.query.limit) || 50;
+      const userId = req.user?.userId as string;
+      const contacts = await this.chatService.getContactChatHistory(
+        userId,
+        page,
+        limit,
+      );
+
+      res.status(200).json({
+        success: true,
+        message: "Contacts data retrieved successfully!",
+        data: contacts,
       });
     } catch (error) {
       next(error);
