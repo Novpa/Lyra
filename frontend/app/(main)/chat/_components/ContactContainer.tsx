@@ -1,9 +1,14 @@
+"use client";
+
 import Link from "next/link";
 import { MdOutlineArrowBack } from "react-icons/md";
 import ContactSearchInput from "./ContactSearchInput";
 import ContactList from "./ContactList";
+import { useGetChatContactHistory } from "../_hooks/use-get-chat-contact-history";
 
 function ContactContainer() {
+  const { data: contacts } = useGetChatContactHistory();
+  console.log("data ==> ", contacts);
   return (
     <section>
       {/* navigation & heading */}
@@ -26,7 +31,7 @@ function ContactContainer() {
 
       {/* contact list */}
       <div className="py-5">
-        <ContactList />
+        <ContactList contacts={contacts} />
       </div>
     </section>
   );

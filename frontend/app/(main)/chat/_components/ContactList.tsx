@@ -1,10 +1,15 @@
+import { ContactChatHistory } from "../types/contact-chat-history-type";
 import ContactItems from "./ContactItems";
 
-function ContactList() {
+interface ContactListProps {
+  contacts: ContactChatHistory;
+}
+
+function ContactList({ contacts }: ContactListProps) {
   return (
     <div className="divide-y divide-neutral-200">
-      {Array.from({ length: 5 }).map((_, i) => {
-        return <ContactItems key={i} />;
+      {contacts?.map((person, i: number) => {
+        return <ContactItems person={person} key={i} />;
       })}
     </div>
   );

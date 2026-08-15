@@ -5,8 +5,6 @@ import {
   GetChatHistory,
   SendMessageDTO,
 } from "../validators/ChatValidator";
-import { e164 } from "zod";
-import { X509Certificate } from "node:crypto";
 
 export class ChatController {
   private chatService: ChatService;
