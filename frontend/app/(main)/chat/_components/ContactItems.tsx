@@ -1,16 +1,25 @@
+"use client";
+
 import Image from "next/image";
 import { ContactChatHistory } from "../types/contact-chat-history-type";
 import { formatRelativeTime } from "../utils/format-relative-time-util";
 import NoProfileImage from "./NoProfileImage";
 import { formatLastMessagePreview } from "../utils/format-last-message-preview-util";
+import { useChatStore } from "@/shared/store/chat-store/ChatStoreProvider";
 
 interface ContactItemsProps {
   person: ContactChatHistory;
 }
+
 function ContactItems({ person }: ContactItemsProps) {
+  const setActiveContactId = useChatStore((store) => store.setContactId);
   const formatedLastMessagePreview = formatLastMessagePreview(person.content);
+
   return (
-    <div className="flex w-full gap-3 items-center py-4 px-3 hover:bg-olive-200 hover:cursor-pointer transition-all duration-300 hover:rounded-sm">
+    <div
+      onClick={() => setActiveContactId(person.contactId)}
+      className="flex w-full gap-3 items-center py-4 px-3 hover:bg-olive-200 hover:cursor-pointer transition-all duration-300 hover:rounded-sm"
+    >
       {/* profile */}
 
       {person.avatar ? (
