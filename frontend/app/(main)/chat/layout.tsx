@@ -13,7 +13,7 @@ function layout({ children }: ChatLayoutProps) {
       <main>
         <div className="flex h-dvh">
           {/* contact list container */}
-          <div className="w-350px border-r border-neutral-200 max-h-full px-3 bg-olive-100">
+          <div className="w-[350px] border-r border-neutral-200 max-h-full px-3 bg-olive-100">
             <ContactContainer />
           </div>
           {/* chat container */}

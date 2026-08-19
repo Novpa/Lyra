@@ -12,13 +12,21 @@ interface ContactItemsProps {
 }
 
 function ContactItems({ person }: ContactItemsProps) {
-  const setActiveContactId = useChatStore((store) => store.setContactId);
+  const setActiveContact = useChatStore((store) => store.setActiveContact);
+  const payloadContactData = {
+    activeContactId: person.contactId,
+    activeFirstName: person.firstName,
+    activeLastName: person.lastName,
+    activeAvatar: person.avatar,
+  };
+
+  const activeContactId = useChatStore((store) => store.activeContactId);
   const formatedLastMessagePreview = formatLastMessagePreview(person.content);
 
   return (
     <div
-      onClick={() => setActiveContactId(person.contactId)}
-      className="flex w-full gap-3 items-center py-4 px-3 hover:bg-olive-200 hover:cursor-pointer transition-all duration-300 hover:rounded-sm"
+      onClick={() => setActiveContact(payloadContactData)}
+      className={`flex w-full gap-3 items-center py-4 px-3 hover:bg-olive-300 ${person.contactId === activeContactId && "bg-olive-300"} hover:cursor-pointer transition-all duration-300 hover:rounded-sm`}
     >
       {/* profile */}
 
