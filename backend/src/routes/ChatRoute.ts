@@ -12,6 +12,7 @@ const chatRepository = new ChatRepository();
 const chatService = new ChatService(chatRepository);
 const chatController = new ChatController(chatService);
 
+// >>> send message
 chatRoute.post(
   "/",
   AuthMiddleware.authentication,
@@ -19,6 +20,7 @@ chatRoute.post(
   chatController.sendMessage,
 );
 
+// >>> get chat history
 chatRoute.get(
   "/history",
   AuthMiddleware.authentication,
@@ -26,6 +28,7 @@ chatRoute.get(
   chatController.getChatHistory,
 );
 
+// >>> get contact chat history
 chatRoute.get(
   "/contact-history",
   AuthMiddleware.authentication,

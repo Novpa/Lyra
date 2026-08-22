@@ -18,9 +18,8 @@ function layout({ children }: ChatLayoutProps) {
           </div>
           {/* chat container */}
           <div className="grow relative h-full py-4 bg-olive-50">
-            <section className="absolute top-0 left-0 right-0 px-4 py-4 bg-olive-500 border-olive-300 z-1">
-              <ChatHeader />
-            </section>
+            <ChatHeader />
+
             {children}
             {/* chat input */}
             <section className="w-full py-4 bg-olive-300 absolute bottom-0 left-0 right border-t border-olive-200 px-4">

@@ -8,6 +8,7 @@ export class ChatService {
     this.chatRepository = ChatRepositoryInstance;
   }
 
+  // >>> send message
   public async sendMessage(
     senderId: string,
     receiverId: string,
@@ -28,16 +29,29 @@ export class ChatService {
       data: savedMessage,
     };
 
-    // send to specific user
+    // >>> send to specific user
     ws.sendToUser(receiverId, payload);
 
     return savedMessage;
   }
 
-  public async getHistory(user1: string, user2: string) {
-    return await this.chatRepository.getChatHistory(user1, user2);
+  // >>> get chat history
+  public async getHistory(
+    user1: string,
+    user2: string,
+    page: number,
+    limit: number,
+  ) {
+    const offset = (page - 1) * limit;
+    return await this.chatRepository.getChatHistory(
+      user1,
+      user2,
+      limit,
+      offset,
+    );
   }
 
+  // >>> get contact chat
   public async getContactChatHistory(
     userId: string,
     page: number,

@@ -16,6 +16,7 @@ export class ChatController {
     this.getContactChatHistory = this.getContactChatHistory.bind(this);
   }
 
+  // >>> send message
   public async sendMessage(
     req: Request<{}, {}, SendMessageDTO, {}>,
     res: Response,
@@ -41,26 +42,32 @@ export class ChatController {
     }
   }
 
-  public async getChatHistory(
-    req: Request<{}, {}, {}, GetChatHistory>,
-    res: Response,
-    next: NextFunction,
-  ) {
+  // >>> get chat history
+  public async getChatHistory(req: Request, res: Response, next: NextFunction) {
     try {
       const user1 = req.user?.userId as string;
-      const user2 = req.query.user2;
-      const messages = await this.chatService.getHistory(user1, user2);
+      const user2 = req.query?.user2 as string;
+      const page = Number(req.query?.page) || 1;
+      const limit = Number(req.query?.limit) || 50;
+
+      const messages = await this.chatService.getHistory(
+        user1,
+        user2,
+        page,
+        limit,
+      );
 
       res.status(200).json({
         success: true,
         message: "Chat history retrieved successfully!",
-        data: messages,
+        data: { ...messages, currentPage: page },
       });
     } catch (error) {
       next(error);
     }
   }
 
+  // get contact chat history
   public async getContactChatHistory(
     req: Request,
     res: Response,

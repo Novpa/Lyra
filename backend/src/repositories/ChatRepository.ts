@@ -1,3 +1,4 @@
+import { off } from "node:cluster";
 import Database from "../config/Database";
 import { CHAT_QUERIES } from "../queries/chatQueries";
 import { AppError } from "../utils/AppError";
@@ -8,6 +9,7 @@ export class ChatRepository {
     private pool = Database.getInstance().getPool(),
   ) {}
 
+  // >>> Save message
   public async saveMessage(
     senderId: string,
     receiverId: string,
@@ -37,27 +39,44 @@ export class ChatRepository {
     });
   }
 
-  // get chat history
-  public async getChatHistory(user1: string, user2: string) {
-    return await this.prisma.message.findMany({
-      where: {
-        OR: [
-          { senderId: user1, receiverId: user2 },
-          { senderId: user2, receiverId: user1 },
-        ],
-      },
+  // >>> get chat history
+  public async getChatHistory(
+    user1: string,
+    user2: string,
+    limit: number,
+    offset: number,
+  ) {
+    const where = {
+      OR: [
+        { senderId: user1, receiverId: user2 },
+        { senderId: user2, receiverId: user1 },
+      ],
+    };
+
+    const data = await this.prisma.message.findMany({
+      where,
       orderBy: {
         createdAt: "asc",
       },
+      take: limit,
+      skip: offset,
     });
+
+    const totalData = await this.prisma.message.count({
+      where,
+    });
+
+    const totalPage = Math.ceil(totalData / limit);
+
+    return { data, totalData, totalPage };
   }
 
+  // >>> get contact chat history
   public async getContactChatHistory(
     userId: string,
     limit: number,
     offset: number,
   ) {
-    //
     const rawContacts = await this.pool.query(
       CHAT_QUERIES.GET_ALL_CONTACT_CHAT_HISTORY,
       [userId, limit, offset],
